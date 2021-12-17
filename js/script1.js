@@ -2,15 +2,11 @@
 
 var cryptoApi = "https://api.coingecko.com/api/v3/coins/market";
 const moeda = "€";
-
+//se quiser limpar mais facil .remove
 //guardar tudo o que está dentro do html div media
-var clonetable = $('.tbody').clone();
+var clonetable = $('.bodyclass').clone();
 //falta fazer algo para acionar as 100 moedas
-$('#btSearch').on('click',function(){
-	//variavel de pesquisa que vem do input de html
-	var valuePesquisa = $('#pesquisa').val();
-	//limpar media
-	$('.tr').html('')
+$(document).ready(function(){ 
 	//pedir algo
 	$.ajax({
 		//definir tipo de request
@@ -21,17 +17,19 @@ $('#btSearch').on('click',function(){
 	}).done(function(res){
 		//mostra o que a api vai devolver
         console.log(res);
-        $.each(res.Search, function(index, result){
+        $.each(res, function(index, result){
+			console.log(result.id);
             //criar ou obter o Html
             var litable = clonetable.clone();
+			console.log(litable);
             //Alterar os valores com os do result
             //alterar id image
-            $('#nmr',litable).attr('src', result.market_cap_rank)
+			$('#nmr',litable).attr('src', result.market_cap_rank)
             $('.nome',litable).text(result.id)
             $('.price',litable).text(result.current_pricefully_diluted_valuation)
             $('.marketcap',litable).text(result.fully_diluted_valuation)
             //colocar na tabela HTML original
-            $('.tr').append(litable)
-        })
+            $('.tr').append(litable);
+		})
 	})
 })
