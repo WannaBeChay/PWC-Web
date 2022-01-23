@@ -30,6 +30,6 @@ $(document).ready(function(){
             $('.marketcap',litable).text(result.fully_diluted_valuation)
             //colocar na tabela HTML original
             $('.tr').append(litable);
-		})
+		})  
 	})
 })
