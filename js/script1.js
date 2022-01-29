@@ -2,9 +2,8 @@
 
 var cryptoApi = "https://api.coingecko.com/api/v3/coins/market";
 const moeda = "€";
-//se quiser limpar mais facil .remove
 //guardar tudo o que está dentro do html div media
-var clonetable = $('.bodyclass').clone();
+var clonemedia = $('.tr').clone();
 //falta fazer algo para acionar as 100 moedas
 $(document).ready(function(){ 
 	//pedir algo
@@ -16,20 +15,48 @@ $(document).ready(function(){
 		//verificar o resultado vindo da api, e o que vem vai para o "res"
 	}).done(function(res){
 		//mostra o que a api vai devolver
-        console.log(res);
+		$('.tr').remove();
+		console.log(res);
+		var dadostable100= [];
         $.each(res, function(index, result){
+			var litable = clonemedia.clone();
 			console.log(result.id);
-            //criar ou obter o Html
-            var litable = clonetable.clone();
-			console.log(litable);
-            //Alterar os valores com os do result
             //alterar id image
-			$('#nmr',litable).attr('src', result.market_cap_rank)
+			$('#nmr',litable).text(result.market_cap_rank)
+			$('.icon', litable).attr('src', result.image)
             $('.nome',litable).text(result.id)
-            $('.price',litable).text(result.current_pricefully_diluted_valuation)
-            $('.marketcap',litable).text(result.fully_diluted_valuation)
+            $('.price',litable).text(result.current_price)
+            $('.marketcap',litable).text(result.market_cap)
+			$('.24h',litable).text(result.market_cap_change_percentage_24h)
             //colocar na tabela HTML original
-            $('.tr').append(litable);
-		})  
+            $('#table1').append(litable);
+			console.log(result.id);
+		});
 	})
 })
+
+/*function search(){
+	var valuePesquisa = $('#PesquisaInput').val();
+	$('.table').empty(); // .html('');
+	$.ajax({
+		method: "GET",
+		url: "https://api.coingecko.com/api/v3/coins/" + valuePesquisa
+	}).done(function(res){
+		console.log(res);
+		$.each(res.Search, function(index, result){
+			var litable = clonemedia.clone();
+			console.log(result.id);
+			//alterar id image
+			$('#nmr',litable).text(result.market_cap_rank)
+			$('.icon', litable).attr('src', result.image)
+			$('.nome',litable).text(result.id)
+			$('.price',litable).text(result.current_price)
+			$('.marketcap',litable).text(result.market_cap)
+			$('.24h',litable).text(result.market_cap_change_percentage_24h)
+			//colocar na tabela HTML original
+			$('#table1').append(litable);
+			console.log(result.id);
+		})
+	})
+	
+}*/
