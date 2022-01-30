@@ -11,3 +11,12 @@
     width:60%;
     margin:0 auto;
 }
+.txtb{
+    font-family: arial;
+    font-size: 17px;
+    border: double;
+    text-align: center
+}
+.star{
+    height: 25px;
+}

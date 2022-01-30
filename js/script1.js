@@ -4,6 +4,7 @@ var cryptoApi = "https://api.coingecko.com/api/v3/coins/market";
 const moeda = "€";
 //guardar tudo o que está dentro do html div media
 var clonemedia = $('.tr').clone();
+var dadostable100 = [];
 //falta fazer algo para acionar as 100 moedas
 $(document).ready(function(){ 
 	//pedir algo
@@ -16,11 +17,11 @@ $(document).ready(function(){
 	}).done(function(res){
 		//mostra o que a api vai devolver
 		$('.tr').remove();
-		console.log(res);
-		var dadostable100= [];
+		dadostable100 = res;
         $.each(res, function(index, result){
 			var litable = clonemedia.clone();
 			console.log(result.id);
+			console.log(res)
             //alterar id image
 			$('#nmr',litable).text(result.market_cap_rank)
 			$('.icon', litable).attr('src', result.image)
@@ -28,6 +29,7 @@ $(document).ready(function(){
             $('.price',litable).text(result.current_price)
             $('.marketcap',litable).text(result.market_cap)
 			$('.24h',litable).text(result.market_cap_change_percentage_24h)
+			$('.star', litable).attr("id","star_"+result.id)
             //colocar na tabela HTML original
             $('#table1').append(litable);
 			console.log(result.id);
@@ -60,3 +62,15 @@ $(document).ready(function(){
 	})
 	
 }*/
+
+function alternarStar(e){
+	if ($(e).attr('src')== "img/star.png") {
+		e.setAttribute('src', "img/selectstar.png")
+	}else{
+		e.setAttribute('src', "img/star.png")
+	}
+}
+function favoritos(){
+	$('.table').empty(); // .html('');
+
+}
