@@ -2,15 +2,11 @@
 
 var cryptoApi = "https://api.coingecko.com/api/v3/coins/market";
 const moeda = "€";
-
 //guardar tudo o que está dentro do html div media
-var clonetable = $('.tbody').clone();
+var clonemedia = $('.tr').clone();
+var dadostable100 = [];
 //falta fazer algo para acionar as 100 moedas
-$('#btSearch').on('click',function(){
-	//variavel de pesquisa que vem do input de html
-	var valuePesquisa = $('#pesquisa').val();
-	//limpar media
-	$('.tr').html('')
+$(document).ready(function(){ 
 	//pedir algo
 	$.ajax({
 		//definir tipo de request
@@ -20,18 +16,61 @@ $('#btSearch').on('click',function(){
 		//verificar o resultado vindo da api, e o que vem vai para o "res"
 	}).done(function(res){
 		//mostra o que a api vai devolver
-        console.log(res);
-        $.each(res.Search, function(index, result){
-            //criar ou obter o Html
-            var litable = clonetable.clone();
-            //Alterar os valores com os do result
+		$('.tr').remove();
+		dadostable100 = res;
+        $.each(res, function(index, result){
+			var litable = clonemedia.clone();
+			console.log(result.id);
+			console.log(res)
             //alterar id image
-            $('#nmr',litable).attr('src', result.market_cap_rank)
+			$('#nmr',litable).text(result.market_cap_rank)
+			$('.icon', litable).attr('src', result.image)
             $('.nome',litable).text(result.id)
-            $('.price',litable).text(result.current_pricefully_diluted_valuation)
-            $('.marketcap',litable).text(result.fully_diluted_valuation)
+            $('.price',litable).text(result.current_price)
+            $('.marketcap',litable).text(result.market_cap)
+			$('.24h',litable).text(result.market_cap_change_percentage_24h)
+			$('.star', litable).attr("id","star_"+result.id)
             //colocar na tabela HTML original
-            $('.tr').append(litable)
-        })
+            $('#table1').append(litable);
+			console.log(result.id);
+		});
 	})
 })
+
+/*function search(){
+	var valuePesquisa = $('#PesquisaInput').val();
+	$('.table').empty(); // .html('');
+	$.ajax({
+		method: "GET",
+		url: "https://api.coingecko.com/api/v3/coins/" + valuePesquisa
+	}).done(function(res){
+		console.log(res);
+		$.each(res.Search, function(index, result){
+			var litable = clonemedia.clone();
+			console.log(result.id);
+			//alterar id image
+			$('#nmr',litable).text(result.market_cap_rank)
+			$('.icon', litable).attr('src', result.image)
+			$('.nome',litable).text(result.id)
+			$('.price',litable).text(result.current_price)
+			$('.marketcap',litable).text(result.market_cap)
+			$('.24h',litable).text(result.market_cap_change_percentage_24h)
+			//colocar na tabela HTML original
+			$('#table1').append(litable);
+			console.log(result.id);
+		})
+	})
+	
+}*/
+
+function alternarStar(e){
+	if ($(e).attr('src')== "img/star.png") {
+		e.setAttribute('src', "img/selectstar.png")
+	}else{
+		e.setAttribute('src', "img/star.png")
+	}
+}
+function favoritos(){
+	$('.table').empty(); // .html('');
+
+}
