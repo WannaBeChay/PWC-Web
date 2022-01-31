@@ -1,24 +1,12 @@
 'use strict';
 
 var cryptoApi = "https://api.coingecko.com/api/v3/coins/market";
-var ApiPing = "https://api.coingecko.com/api/v3/ping";
 const moeda = "€";
-
-// Ping a API
-fetch(ApiPing).then(data => {
-	return data.json()
-}).then(value => {
-	console.log(value);
-});
-
 //guardar tudo o que está dentro do html div media
-var clonetable = $('.tbody').clone();
+var clonemedia = $('.tr').clone();
+var dadostable100 = [];
 //falta fazer algo para acionar as 100 moedas
-$('#btSearch').on('click', function () {
-	//variavel de pesquisa que vem do input de html
-	var valuePesquisa = $('#pesquisa').val();
-	//limpar media
-	$('.tr').html('')
+$(document).ready(function(){ 
 	//pedir algo
 	$.ajax({
 		//definir tipo de request
@@ -26,25 +14,52 @@ $('#btSearch').on('click', function () {
 		//definir para onde vamos enviar
 		url: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=100&page=1&sparkline=false"
 		//verificar o resultado vindo da api, e o que vem vai para o "res"
-	}).done(function (res) {
+	}).done(function(res){
 		//mostra o que a api vai devolver
+		$('.tr').remove();
+		dadostable100 = res;
+        $.each(res, function(index, result){
+			var litable = clonemedia.clone();
+			console.log(result.id);
+			console.log(res)
+            //alterar id image
+			$('#nmr',litable).text(result.market_cap_rank)
+			$('.icon', litable).attr('src', result.image)
+            $('.nome',litable).text(result.id)
+            $('.price',litable).text(result.current_price)
+            $('.marketcap',litable).text(result.market_cap)
+			$('.24h',litable).text(result.market_cap_change_percentage_24h)
+			$('.star', litable).attr("id","star_"+result.id)
+            //colocar na tabela HTML original
+            $('#table1').append(litable);
+			console.log(result.id);
+		});
+	})
+})
+
+/*function search(){
+	var valuePesquisa = $('#PesquisaInput').val();
+	$('.table').empty(); // .html('');
+	$.ajax({
+		method: "GET",
+		url: "https://api.coingecko.com/api/v3/coins/" + valuePesquisa
+	}).done(function(res){
 		console.log(res);
-		$.each(res.Search, function (index, result) {
-			//criar ou obter o Html
-			var litable = clonetable.clone();
-			//Alterar os valores com os do result
+		$.each(res.Search, function(index, result){
+			var litable = clonemedia.clone();
+			console.log(result.id);
 			//alterar id image
-			$('#nmr', litable).attr('src', result.market_cap_rank)
-			$('.nome', litable).text(result.id)
-			$('.price', litable).text(result.current_pricefully_diluted_valuation)
-			$('.marketcap', litable).text(result.fully_diluted_valuation)
+			$('#nmr',litable).text(result.market_cap_rank)
+			$('.icon', litable).attr('src', result.image)
+			$('.nome',litable).text(result.id)
+			$('.price',litable).text(result.current_price)
+			$('.marketcap',litable).text(result.market_cap)
+			$('.24h',litable).text(result.market_cap_change_percentage_24h)
 			//colocar na tabela HTML original
-			$('.tr').append(litable)
+			$('#table1').append(litable);
+			console.log(result.id);
 		})
 	})
-<<<<<<< Updated upstream
-})
-=======
 	
 }*/
 
@@ -59,7 +74,3 @@ function favoritos(){
 	$('.table').empty(); // .html('');
 
 }
-
-
-
->>>>>>> Stashed changes
