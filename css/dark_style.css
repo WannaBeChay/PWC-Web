@@ -18,3 +18,11 @@
 [data-theme="dark"] .bg-white {
   background-color: #000 !important;
 }
+
+[data-theme="dark"] .bg-white-text {
+  color: #212529 !important;
+}
+
+[data-theme="dark"] .bg-dark-text {
+  color: #fff !important;
+}

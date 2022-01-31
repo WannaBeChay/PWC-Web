@@ -1,6 +1,26 @@
 .nav {
-    font-family: 'Varela Round', sans-serif;
+    font-family: 'Montserrat Alternates', sans-serif;
 }
 #nome {
+<<<<<<< Updated upstream
     font-family: 'Varela Round', sans-serif;
+=======
+    font-family: 'Montserrat Alternates', sans-serif;
+}
+#imagem{
+    height: 30px;
+}
+#table1{
+    width:60%;
+    margin:0 auto;
+}
+.txtb{
+    font-family: arial;
+    font-size: 17px;
+    border: double;
+    text-align: center
+}
+.star{
+    height: 25px;
+>>>>>>> Stashed changes
 }

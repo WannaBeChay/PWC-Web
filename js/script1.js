@@ -42,4 +42,24 @@ $('#btSearch').on('click', function () {
 			$('.tr').append(litable)
 		})
 	})
+<<<<<<< Updated upstream
 })
+=======
+	
+}*/
+
+function alternarStar(e){
+	if ($(e).attr('src')== "img/star.png") {
+		e.setAttribute('src', "img/selectstar.png")
+	}else{
+		e.setAttribute('src', "img/star.png")
+	}
+}
+function favoritos(){
+	$('.table').empty(); // .html('');
+
+}
+
+
+
+>>>>>>> Stashed changes
